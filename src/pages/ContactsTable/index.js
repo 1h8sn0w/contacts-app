@@ -13,6 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { format } from "date-fns";
 import parceISO from "date-fns/parseISO";
 import { CopyToClipboard } from "../../components/CopyToClipboard";
+import {NATIONALITIES_HUMAN_NAME} from "../../constants/nationality";
 
 const useStyles = makeStyles({
   table: {},
@@ -66,7 +67,7 @@ export const ContactsTable = ({ data }) => {
                   {contact.location.street.number}
                 </Typography>
               </TableCell>
-              <TableCell>7</TableCell>
+              <TableCell>{NATIONALITIES_HUMAN_NAME[contact.nat]}</TableCell>
             </TableRow>
           ))}
         </TableBody>
