@@ -1,5 +1,6 @@
 import { Container, Grid, LinearProgress, Typography } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { useState } from "react";
 import { useContacts } from "../../hooks/useContacts";
 import { ContactsTable } from "../ContactsTable";
 
@@ -14,9 +15,15 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
+const DATA_VIEW_MODES = {
+  TABLE: "table",
+  GRID: "grid",
+};
+
 export const Contacts = () => {
   const classes = useStyles();
   const contacts = useContacts();
+  const [dataViewMode, setDataViewMode] = useState(DATA_VIEW_MODES.TABLE);
 
   return (
     <Container className={classes.root}>
@@ -31,9 +38,11 @@ export const Contacts = () => {
         ) : (
           <Grid item xs={12}>
             {contacts.isLoading ? (
-              <LinearProgress/>
-            ) : (
+              <LinearProgress />
+            ) : dataViewMode === DATA_VIEW_MODES.TABLE ? (
               <ContactsTable data={contacts.data} />
+            ) : (
+              dataViewMode === DATA_VIEW_MODES.GRID && <div>GRID</div>
             )}
           </Grid>
         )}
